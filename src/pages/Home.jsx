@@ -33,7 +33,7 @@ export default function Home() {
   ));
   return (
     <div>
-      <section className="flex items-center">
+      <section className="flex items-center px-28">
         <div>
           <div className="mb-12">
             <h2 className="text-5xl mb-6 text-black font-extrabold">
@@ -50,8 +50,8 @@ export default function Home() {
         </div>
         <img src={remotePicture} alt="" className="w-1/2 h-1/2" />
       </section>
-      <section className="">
-        <div className="flex">{processCards}</div>
+      <section className="bg-white py-10 px-28">
+        <div className="flex justify-between rounded-md shadow-xl py-4">{processCards}</div>
       </section>
     </div>
   );
