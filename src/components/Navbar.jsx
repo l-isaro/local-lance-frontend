@@ -8,9 +8,9 @@ export default function Navbar() {
             <NavLink to="/" className={({isActive}) => isActive ? "text-web-blue" : ""}>Home</NavLink>
             <NavLink to="/home">Find Work</NavLink>
             <NavLink to="/home">Find Freelancers</NavLink>
-            <NavLink to="/home">Log In</NavLink>
-            <NavLink to="/home">Sign Up</NavLink>
-            <NavLink to="/home" className="bg-web-blue rounded-full py-2 px-8 text-white text-sm ml-7 font-medium">Post a project</NavLink>
+            <NavLink to="/login" className={({isActive}) => isActive ? "text-web-blue" : ""}>Log In</NavLink>
+            <NavLink to="/">Sign Up</NavLink>
+            <NavLink to="/" className="bg-web-blue rounded-full py-2 px-8 text-white text-sm ml-7 font-medium">Post a project</NavLink>
         </ul>
         
     </div>
