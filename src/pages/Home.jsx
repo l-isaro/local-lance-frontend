@@ -4,6 +4,7 @@ import account from "../assets/account.png";
 import search from "../assets/search.png";
 import apply from "../assets/apply.png";
 import Process from "../components/Process";
+import stats from "../assets/stats.png"
 
 export default function Home() {
   const processes = [
@@ -52,6 +53,14 @@ export default function Home() {
       </section>
       <section className="bg-white py-10 px-28">
         <div className="flex justify-between rounded-md shadow-xl py-4">{processCards}</div>
+      </section>
+      <section className="flex px-28 items-center bg-white gap-16 pt-10">
+        <img src={stats} alt="" className="w-2/5"/>
+        <div>
+            <h2 className="text-5xl text-black mb-8">Find The Best <span className="text-web-blue">Freelancers</span> Here</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut erat bibendum ornare urna, cursus eget convallis. Feugiat imperdiet posuere justo, ultrices interdum
+            sed orci nunc, mattis. Ipsum viverra viverra neque adipiscing arcu, quam dictum. Dui mi viverra dui, sit accumsan, tincidunt massa. Dui cras magnis.</p>
+        </div>
       </section>
     </div>
   );
