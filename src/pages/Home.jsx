@@ -111,9 +111,9 @@ export default function Home() {
         </div>
       </section>
       <section className="p-28 bg-white">
-        <p>The latest freelance work!</p>
-        <h3>
-          Recently Posted <span>Works</span>
+        <p className="text-2xl mb-3">The latest freelance work!</p>
+        <h3 className="text-black font-medium text-4xl mb-12">
+          Recently Posted <span className="text-web-blue">Works</span>
         </h3>
         <div className="flex gap-10">{workCards}</div>
       </section>
