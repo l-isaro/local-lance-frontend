@@ -50,6 +50,20 @@ export default function Home() {
         "Need a SEO for our company who will let our company to a higher level",
       highestBid: 300,
     },
+    {
+      img: MaterialUi,
+      title: "Logo Design",
+      paragraph:
+        "Need a professional logo with writing underneath for our jewellery company",
+      highestBid: 500,
+    },
+    {
+      img: CanvaApp,
+      title: "Graphic Design",
+      paragraph:
+        "We need a graphic designer with UI/UX skills for our Furniture company",
+      highestBid: 500,
+    },
   ];
 
   const workCards = works.map((work) => (
@@ -71,7 +85,7 @@ export default function Home() {
     />
   ));
   return (
-    <div>
+    <div className="overflow-x-hidden">
       <section className="flex items-center px-28">
         <div>
           <div className="mb-12">
@@ -115,7 +129,9 @@ export default function Home() {
         <h3 className="text-black font-medium text-4xl mb-12">
           Recently Posted <span className="text-web-blue">Works</span>
         </h3>
-        <div className="flex gap-10">{workCards}</div>
+        <div className="overflow-x-auto scrollbar-hidden p-2">
+        <div className="flex gap-10 w-fit">{workCards}</div>
+        </div>
       </section>
     </div>
   );
