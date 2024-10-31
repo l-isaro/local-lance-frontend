@@ -9,6 +9,7 @@ import MaterialUi from "../assets/MaterialUi.png";
 import CanvaApp from "../assets/CanvaApp.png";
 import graph from "../assets/graph.png";
 import WorkCard from "../components/workCard";
+import Input from "../components/Input";
 
 export default function Home() {
   const processes = [
@@ -132,6 +133,12 @@ export default function Home() {
         <div className="overflow-x-auto scrollbar-hidden p-2">
         <div className="flex gap-10 w-fit">{workCards}</div>
         </div>
+      </section>
+      <section className="bg-background-green flex flex-col items-center py-14">
+        <h2 className="text-black text-3xl font-medium mb-2">Newsletter Subscription</h2>
+        <p className="text-sm mb-5">Subscribe to our newsletter to get new freelance work and projects</p>
+        <input placeholder='Enter your email adress' type='email' className="p-3 border rounded-md w-96 text-center shadow-md"/>
+        <button className="bg-web-blue py-3 px-8 rounded-md text-white mt-10">Subscribe</button>
       </section>
     </div>
   );
