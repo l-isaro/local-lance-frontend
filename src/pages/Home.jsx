@@ -137,7 +137,7 @@ export default function Home() {
       <section className="bg-background-green flex flex-col items-center py-14">
         <h2 className="text-black text-3xl font-medium mb-2">Newsletter Subscription</h2>
         <p className="text-sm mb-5">Subscribe to our newsletter to get new freelance work and projects</p>
-        <input placeholder='Enter your email adress' type='email' className="p-3 border rounded-md w-96 text-center shadow-md"/>
+        <input placeholder='Enter your email adress' type='email' className="p-3 border rounded-md w-96 text-center shadow-md text-black"/>
         <button className="bg-web-blue py-3 px-8 rounded-md text-white mt-10">Subscribe</button>
       </section>
     </div>

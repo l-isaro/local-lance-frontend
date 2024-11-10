@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import LoginForm from "../components/LoginForm";
+import { useAuth } from "../contexts/AuthContext";
 
 export default function Login() {
   return (
