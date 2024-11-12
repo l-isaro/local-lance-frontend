@@ -8,7 +8,7 @@ export const AuthProvider = ({ children }) => {
 
   const register = async (userData) => {
     try {
-      const response = await fetch(`${apiUrl}/auth/register`, {
+      const response = await fetch(`${apiUrl}/user/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

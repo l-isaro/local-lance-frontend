@@ -12,7 +12,7 @@ export default function SignupForm() {
 
   const [errors, setErrors] = useState({});
 
-  const { register } = useAuth();
+  const { register, login } = useAuth();
 
   const handleChange = (e) => {
     setFormData({
@@ -25,6 +25,7 @@ export default function SignupForm() {
     e.preventDefault();
     if (validateForm()) {
       register(formData);
+      login({ email: formData.email, password: formData.password })
     }
   };
 
