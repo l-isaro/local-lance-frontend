@@ -11,7 +11,7 @@ export default function LoggedNavbar() {
         <NavLink to="/home">Find Work</NavLink>
         <NavLink to="/home">Find Freelancers</NavLink>
         <NavLink to="/login" className={({isActive}) => isActive ? "text-web-blue" : ""} onClick={logout}>Log out</NavLink>
-        <NavLink to="/" className="bg-web-blue rounded-full py-2 px-8 text-white text-sm ml-7 font-medium">Post a project</NavLink>
+        <NavLink to="/project/create" className="bg-web-blue rounded-full py-2 px-8 text-white text-sm ml-7 font-medium">Post a project</NavLink>
     </ul>
     
 </div>

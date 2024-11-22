@@ -9,21 +9,33 @@ import MaterialUi from "../assets/MaterialUi.png";
 import CanvaApp from "../assets/CanvaApp.png";
 import graph from "../assets/graph.png";
 import WorkCard from "../components/workCard";
-import Input from "../components/Input";
+import { useEffect, useState } from "react";
+import { v4 as uuidv4 } from 'uuid';
 
 export default function Home() {
+  const [projects, setProjects] = useState([]);
+
+  useEffect(() => {
+    // Load saved projects from local storage when the component mounts
+    const savedProjects = JSON.parse(localStorage.getItem("projects")) || [];
+    setProjects(savedProjects);
+  }, []);
+
   const processes = [
     {
+      id: uuidv4(),
       img: account,
       title: "Create Account",
       paragraph: "First you have to create an account here",
     },
     {
+      id: uuidv4(),
       img: search,
       title: "Search Work",
       paragraph: "Search the best freelance work here",
     },
     {
+      id: uuidv4(),
       img: apply,
       title: "Save and Apply",
       paragraph: "Apply or save and start your work",
@@ -31,49 +43,59 @@ export default function Home() {
   ];
   const works = [
     {
+      id: uuidv4(),
       img: MaterialUi,
       title: "Logo Design",
-      paragraph:
+      description:
         "Need a professional logo with writing underneath for our jewellery company",
       highestBid: 500,
     },
     {
+      id: uuidv4(),
       img: CanvaApp,
       title: "Graphic Design",
-      paragraph:
+      description:
         "We need a graphic designer with UI/UX skills for our Furniture company",
       highestBid: 500,
     },
     {
+      id: uuidv4(),
       img: graph,
       title: "Need a SEO",
-      paragraph:
+      description:
         "Need a SEO for our company who will let our company to a higher level",
       highestBid: 300,
     },
     {
+      id: uuidv4(),
       img: MaterialUi,
       title: "Logo Design",
-      paragraph:
+      description:
         "Need a professional logo with writing underneath for our jewellery company",
       highestBid: 500,
     },
     {
+      id: uuidv4(),
       img: CanvaApp,
       title: "Graphic Design",
-      paragraph:
+      description:
         "We need a graphic designer with UI/UX skills for our Furniture company",
       highestBid: 500,
     },
   ];
 
-  const workCards = works.map((work) => (
+  const displayedProjects = works.concat(projects)
+
+  const workCards = displayedProjects.map((work) => (
     <WorkCard
       img={work.img}
       title={work.title}
-      paragraph={work.paragraph}
+      description={work.description}
       highestBid={work.highestBid}
-      key={work.title}
+      skills={work.skills}
+      deadline={work.deadline}
+      id={work.id}
+      key={work.id}
     />
   ));
 
@@ -82,7 +104,7 @@ export default function Home() {
       img={process.img}
       title={process.title}
       paragraph={process.paragraph}
-      key={process.title}
+      key={process.id}
     />
   ));
   return (

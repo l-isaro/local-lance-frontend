@@ -3,17 +3,20 @@ import { useAuth } from "../contexts/AuthContext";
 import Input from "./Input";
 import HideEye from "../assets/HideEye";
 import ShowEye from "../assets/ShowEye";
+import { useNavigate } from "react-router-dom";
 
 export default function LoginForm() {
   const { login } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const [credentials, setCredentials] = useState({ email: "", password: "" });
+  const navigate = useNavigate()
   console.log(showPassword)
 
   const handleSubmit = (e) => {
     console.log(credentials);
     e.preventDefault();
     login(credentials);
+    navigate()
   };
 
   function handleShowPassword() {
