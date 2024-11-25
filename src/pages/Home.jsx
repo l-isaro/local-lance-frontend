@@ -16,7 +16,6 @@ export default function Home() {
   const [projects, setProjects] = useState([]);
 
   useEffect(() => {
-    // Load saved projects from local storage when the component mounts
     const savedProjects = JSON.parse(localStorage.getItem("projects")) || [];
     setProjects(savedProjects);
   }, []);

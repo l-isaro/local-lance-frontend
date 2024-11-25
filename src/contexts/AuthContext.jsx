@@ -1,10 +1,26 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { apiUrl } from "../constants/ApiUrl";
+import { jwtDecode } from "jwt-decode";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("token") || null);
+  const [user, setUser] = useState(token ? jwtDecode(token) : null);
+
+// On token change, decode the user info
+useEffect(() => {
+  if (token) {
+    try {
+      const decoded = jwtDecode(token);
+      setUser(decoded); // Example decoded token: { userId: "123", role: "client" }
+    } catch (error) {
+      console.error("Invalid token:", error);
+      logout();
+    }
+  }
+}, [token]);
+
 
   const register = async (userData) => {
     try {
@@ -55,7 +71,7 @@ export const AuthProvider = ({ children }) => {
   const isLoggedIn = () => !!token;
 
   return (
-    <AuthContext.Provider value={{ token, login, logout, isLoggedIn, register }}>
+    <AuthContext.Provider value={{ token, login, logout, isLoggedIn, register, user }}>
       {children}
     </AuthContext.Provider>
   );
