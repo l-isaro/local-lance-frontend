@@ -1,6 +1,8 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import PropTypes from 'prop-types';
 import { apiUrl } from "../constants/ApiUrl";
 import { jwtDecode } from "jwt-decode";
+import { v4 as uuidv4 } from 'uuid';
 
 const AuthContext = createContext();
 
@@ -13,13 +15,26 @@ useEffect(() => {
   if (token) {
     try {
       const decoded = jwtDecode(token);
-      setUser(decoded); // Example decoded token: { userId: "123", role: "client" }
+
+      const clientId = getClientId();
+      const enhancedUser = { ...decoded, clientId };
+
+      setUser(enhancedUser);
     } catch (error) {
       console.error("Invalid token:", error);
       logout();
     }
   }
 }, [token]);
+
+const getClientId = () => {
+  let clientId = localStorage.getItem("clientId");
+  if (!clientId) {
+    clientId = uuidv4(); // Generate a new UUID
+    localStorage.setItem("clientId", clientId); // Save it for future use
+  }
+  return clientId;
+};
 
 
   const register = async (userData) => {
@@ -75,6 +90,9 @@ useEffect(() => {
       {children}
     </AuthContext.Provider>
   );
+};
+AuthProvider.propTypes = {
+  children: PropTypes.node.isRequired,
 };
 
 export const useAuth = () => useContext(AuthContext);

@@ -1,6 +1,7 @@
 import { useAuth } from "../contexts/AuthContext";
 import { useState } from "react";
 import Input from "./Input";
+import { useNavigate } from "react-router-dom";
 
 export default function SignupForm() {
   const [formData, setFormData] = useState({
@@ -12,7 +13,9 @@ export default function SignupForm() {
 
   const [errors, setErrors] = useState({});
 
-  const { register, login } = useAuth();
+  const { register } = useAuth();
+
+  const navigate = useNavigate()
 
   const handleChange = (e) => {
     setFormData({
@@ -25,7 +28,7 @@ export default function SignupForm() {
     e.preventDefault();
     if (validateForm()) {
       register(formData);
-      login({ email: formData.email, password: formData.password })
+      navigate('/login')
     }
   };
 

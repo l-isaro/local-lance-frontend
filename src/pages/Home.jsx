@@ -11,9 +11,12 @@ import graph from "../assets/graph.png";
 import WorkCard from "../components/workCard";
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
+import { useAuth } from "../contexts/AuthContext";
 
 export default function Home() {
   const [projects, setProjects] = useState([]);
+  const {user} = useAuth()
+  console.log(user);
 
   useEffect(() => {
     const savedProjects = JSON.parse(localStorage.getItem("projects")) || [];

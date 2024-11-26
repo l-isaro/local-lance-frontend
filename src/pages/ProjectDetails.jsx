@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom"
+import { useLocation, useParams } from "react-router-dom"
 import ApplicationForm from "../components/ApplicationForm"
 
 export default function ProjectDetails() {

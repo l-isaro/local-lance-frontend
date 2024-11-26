@@ -9,14 +9,20 @@ export default function LoginForm() {
   const { login } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const [credentials, setCredentials] = useState({ email: "", password: "" });
-  const navigate = useNavigate()
-  console.log(showPassword)
+  const [loading, setLoading] = useState(false); // State to track loading
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
-    console.log(credentials);
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    login(credentials);
-    navigate()
+    setLoading(true); // Set loading to true when login starts
+    try {
+      await login(credentials);
+      navigate('/'); // Navigate to the desired route after successful login
+    } catch (error) {
+      console.error("Login failed:", error);
+    } finally {
+      setLoading(false); // Reset loading to false after login completes
+    }
   };
 
   function handleShowPassword() {
@@ -40,7 +46,7 @@ export default function LoginForm() {
         <div className="relative flex items-center justify-between">
           <Input
             id="password"
-            type={showPassword ? 'text' : 'password'}
+            type={showPassword ? "text" : "password"}
             placeholder="Enter password"
             value={credentials.password}
             onChange={(e) =>
@@ -52,11 +58,7 @@ export default function LoginForm() {
             onClick={handleShowPassword}
             className="absolute right-4 rounded-3xl px-3 font-inter"
           >
-            {showPassword ? (
-              <HideEye />
-            ) : (
-              <ShowEye />
-            )}
+            {showPassword ? <HideEye /> : <ShowEye />}
           </button>
         </div>
         <div className="">
@@ -66,8 +68,9 @@ export default function LoginForm() {
       <button
         type="submit"
         className="bg-web-blue text-white rounded-md py-3 px-8 w-80 mt-4"
+        disabled={loading} // Disable button when loading
       >
-        Log In
+        {loading ? "Loading..." : "Log In"} {/* Change button text */}
       </button>
     </form>
   );

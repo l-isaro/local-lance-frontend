@@ -2,11 +2,14 @@ import { useEffect, useState } from "react";
 import Input from "./Input";
 import { useNavigate } from "react-router-dom";
 import MaterialUi from "../assets/MaterialUi.png";
+import { useAuth } from "../contexts/AuthContext";
 import { v4 as uuidv4 } from 'uuid';
 
 export default function ProjectForm() {
+  const {user} = useAuth()
   const [formData, setFormData] = useState({
     id: uuidv4(),
+    clientId: user.clientId,
     img: MaterialUi,
     title: "",
     description: "",

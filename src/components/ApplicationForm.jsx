@@ -1,8 +1,14 @@
 import { Button, Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
 import { useState } from "react";
+import { useApplications } from "../contexts/ApplicationsContext";
+import { useParams } from "react-router-dom";
 
 export default function ApplicationForm() {
+  const {projectId} = useParams()
+  console.log(projectId)
+  const { addApplication } = useApplications(); // Access the addApplication function
   let [isOpen, setIsOpen] = useState(false);
+
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -40,8 +46,20 @@ export default function ApplicationForm() {
       setErrors(validationErrors);
       return;
     }
-    console.log("Form Submitted Successfully:", formData);
-    // Reset form or handle submission
+
+    // Create the application object
+    const application = {
+      ...formData,
+      projectId, // Associate the application with the specific project/job
+      submittedAt: new Date().toISOString(),
+    };
+
+    // Add application to the context
+    addApplication(application);
+
+    console.log("Application submitted successfully:", application);
+
+    // Reset form and close dialog
     setFormData({
       fullName: "",
       email: "",
@@ -52,6 +70,7 @@ export default function ApplicationForm() {
       bio: "",
     });
     setErrors({});
+    setIsOpen(false);
   };
 
   function open() {
@@ -76,123 +95,48 @@ export default function ApplicationForm() {
         as="div"
         className="relative z-10 focus:outline-none"
         onClose={close}
-        __demoMode
       >
         <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
           <div className="flex min-h-full items-center justify-center p-4">
             <DialogPanel
               transition
-              className="w-full max-w-md rounded-xl bg-white p-6 backdrop-blur-2xl duration-300 ease-out data-[closed]:transform-[scale(95%)] data-[closed]:opacity-0"
+              className="w-full max-w-md rounded-xl bg-white p-6 backdrop-blur-2xl duration-300 ease-out"
             >
               <DialogTitle
                 as="h3"
-                className="text-base/7 font-medium text-white"
+                className="text-base/7 font-medium text-gray-800"
               >
-                Payment successful
+                Submit Your Application
               </DialogTitle>
               <form
                 onSubmit={handleSubmit}
-                className="space-y-4 max-w-lg mx-auto mt-2 text-sm/6 text-web-gray"
+                className="space-y-4 max-w-lg mx-auto mt-2 text-sm/6 text-gray-600"
               >
+                {[
+                  { name: "fullName", label: "Full Name", type: "text" },
+                  { name: "email", label: "Email", type: "email" },
+                  { name: "professionalTitle", label: "Professional Title", type: "text" },
+                  { name: "skills", label: "Skills", type: "text", placeholder: "E.g., React, JavaScript" },
+                  { name: "portfolioUrl", label: "Portfolio URL", type: "url" },
+                  { name: "hourlyRate", label: "Hourly Rate", type: "number" },
+                ].map(({ name, label, type, placeholder }) => (
+                  <div key={name}>
+                    <label className="block text-sm font-medium">{label}</label>
+                    <input
+                      type={type}
+                      name={name}
+                      value={formData[name]}
+                      onChange={handleChange}
+                      placeholder={placeholder}
+                      className="border rounded w-full p-2"
+                    />
+                    {errors[name] && (
+                      <p className="text-red-500 text-sm">{errors[name]}</p>
+                    )}
+                  </div>
+                ))}
                 <div>
-                  <label className="block text-sm font-medium">Full Name</label>
-                  <input
-                    type="text"
-                    name="fullName"
-                    value={formData.fullName}
-                    onChange={handleChange}
-                    className="border rounded w-full p-2"
-                  />
-                  {errors.fullName && (
-                    <p className="text-red-500 text-sm">{errors.fullName}</p>
-                  )}
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium">Email</label>
-                  <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    className="border rounded w-full p-2"
-                  />
-                  {errors.email && (
-                    <p className="text-red-500 text-sm">{errors.email}</p>
-                  )}
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium">
-                    Professional Title
-                  </label>
-                  <input
-                    type="text"
-                    name="professionalTitle"
-                    value={formData.professionalTitle}
-                    onChange={handleChange}
-                    className="border rounded w-full p-2"
-                  />
-                  {errors.professionalTitle && (
-                    <p className="text-red-500 text-sm">
-                      {errors.professionalTitle}
-                    </p>
-                  )}
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium">Skills</label>
-                  <input
-                    type="text"
-                    name="skills"
-                    value={formData.skills}
-                    onChange={handleChange}
-                    placeholder="E.g., React, JavaScript, Node.js"
-                    className="border rounded w-full p-2"
-                  />
-                  {errors.skills && (
-                    <p className="text-red-500 text-sm">{errors.skills}</p>
-                  )}
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium">
-                    Portfolio URL
-                  </label>
-                  <input
-                    type="url"
-                    name="portfolioUrl"
-                    value={formData.portfolioUrl}
-                    onChange={handleChange}
-                    className="border rounded w-full p-2"
-                  />
-                  {errors.portfolioUrl && (
-                    <p className="text-red-500 text-sm">
-                      {errors.portfolioUrl}
-                    </p>
-                  )}
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium">
-                    Hourly Rate
-                  </label>
-                  <input
-                    type="number"
-                    name="hourlyRate"
-                    value={formData.hourlyRate}
-                    onChange={handleChange}
-                    className="border rounded w-full p-2"
-                  />
-                  {errors.hourlyRate && (
-                    <p className="text-red-500 text-sm">{errors.hourlyRate}</p>
-                  )}
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium">
-                    Personal Bio
-                  </label>
+                  <label className="block text-sm font-medium">Personal Bio</label>
                   <textarea
                     name="bio"
                     value={formData.bio}
@@ -201,15 +145,15 @@ export default function ApplicationForm() {
                     placeholder="Briefly describe yourself and your experience"
                   />
                 </div>
+                <div className="mt-4">
+                  <Button
+                    type="submit"
+                    className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 text-sm"
+                  >
+                    Submit
+                  </Button>
+                </div>
               </form>
-              <div className="mt-4">
-                <Button
-                  className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 text-sm"
-                  onClick={close}
-                >
-                  Submit
-                </Button>
-              </div>
             </DialogPanel>
           </div>
         </div>
