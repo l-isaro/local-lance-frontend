@@ -1,9 +1,9 @@
-import { useLocation, useParams } from "react-router-dom"
+import { useLocation } from "react-router-dom"
 import ApplicationForm from "../components/ApplicationForm"
 
 export default function ProjectDetails() {
     const location = useLocation()
-    const {title, description, skills, deadline, highestBid, id} = location.state || {}
+    const {title, description, skills, deadline, highestBid } = location.state || {}
     console.log(location.state)
 return (
     <div className="min-h-screen flex flex-col items-center justify-center text-web-gray">

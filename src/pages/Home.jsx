@@ -10,12 +10,12 @@ import CanvaApp from "../assets/CanvaApp.png";
 import graph from "../assets/graph.png";
 import WorkCard from "../components/workCard";
 import { useEffect, useState } from "react";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 import { useAuth } from "../contexts/AuthContext";
 
 export default function Home() {
   const [projects, setProjects] = useState([]);
-  const {user} = useAuth()
+  const { user } = useAuth();
   console.log(user);
 
   useEffect(() => {
@@ -86,7 +86,7 @@ export default function Home() {
     },
   ];
 
-  const displayedProjects = works.concat(projects)
+  const displayedProjects = works.concat(projects);
 
   const workCards = displayedProjects.map((work) => (
     <WorkCard
@@ -133,7 +133,10 @@ export default function Home() {
           {processCards}
         </div>
       </section>
-      <section className="flex px-28 items-center bg-white gap-16 pt-10">
+      <section
+        className="flex px-28 items-center bg-white gap-16 pt-10"
+        id="findFreelancers"
+      >
         <img src={stats} alt="" className="w-2/5" />
         <div>
           <h2 className="text-5xl text-black mb-8">
@@ -141,11 +144,10 @@ export default function Home() {
             Here
           </h2>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut erat
-            bibendum ornare urna, cursus eget convallis. Feugiat imperdiet
-            posuere justo, ultrices interdum sed orci nunc, mattis. Ipsum
-            viverra viverra neque adipiscing arcu, quam dictum. Dui mi viverra
-            dui, sit accumsan, tincidunt massa. Dui cras magnis.
+            Discover top-tier freelancers with exceptional skills tailored to
+            meet your project needs. From creative design to technical
+            expertise, connect with professionals ready to bring your vision to
+            life. Let’s build something great together!
           </p>
         </div>
       </section>
@@ -155,14 +157,24 @@ export default function Home() {
           Recently Posted <span className="text-web-blue">Works</span>
         </h3>
         <div className="overflow-x-auto scrollbar-hidden p-2">
-        <div className="flex gap-10 w-fit">{workCards}</div>
+          <div className="flex gap-10 w-fit">{workCards}</div>
         </div>
       </section>
       <section className="bg-background-green flex flex-col items-center py-14">
-        <h2 className="text-black text-3xl font-medium mb-2">Newsletter Subscription</h2>
-        <p className="text-sm mb-5">Subscribe to our newsletter to get new freelance work and projects</p>
-        <input placeholder='Enter your email adress' type='email' className="p-3 border rounded-md w-96 text-center shadow-md text-black"/>
-        <button className="bg-web-blue py-3 px-8 rounded-md text-white mt-10">Subscribe</button>
+        <h2 className="text-black text-3xl font-medium mb-2">
+          Newsletter Subscription
+        </h2>
+        <p className="text-sm mb-5">
+          Subscribe to our newsletter to get new freelance work and projects
+        </p>
+        <input
+          placeholder="Enter your email adress"
+          type="email"
+          className="p-3 border rounded-md w-96 text-center shadow-md text-black"
+        />
+        <button className="bg-web-blue py-3 px-8 rounded-md text-white mt-10">
+          Subscribe
+        </button>
       </section>
     </div>
   );

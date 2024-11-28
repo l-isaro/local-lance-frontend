@@ -1,7 +1,6 @@
 import { NavLink } from "react-router-dom";
 
 export default function WorkCard(props) {
-  console.log(props.id)
   return (
     <div className="shadow-lg p-4 w-60 rounded-lg">
         <img src={props.img} alt="" className="mx-auto"/>

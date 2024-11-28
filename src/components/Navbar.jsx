@@ -7,7 +7,7 @@ export default function Navbar() {
         <ul className="flex gap-8 items-center text-sm">
             <NavLink to="/" className={({isActive}) => isActive ? "text-web-blue" : ""}>Home</NavLink>
             <NavLink to="/home">Find Work</NavLink>
-            <NavLink to="/home">Find Freelancers</NavLink>
+            <NavLink to="#findFreelancers">Find Freelancers</NavLink>
             <NavLink to="/login" className={({isActive}) => isActive ? "text-web-blue" : ""}>Log In</NavLink>
             <NavLink to="/signup" className={({isActive}) => isActive ? "text-web-blue" : ""}>Sign Up</NavLink>
             <NavLink to="/project/create" className="bg-web-blue rounded-full py-2 px-8 text-white text-sm ml-7 font-medium">Post a project</NavLink>
