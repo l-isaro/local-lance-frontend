@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import PropTypes from 'prop-types';
-import { apiUrl } from "../constants/ApiUrl";
+import { apiUrl } from "../constants/apiUrl";
 import { jwtDecode } from "jwt-decode";
 import { v4 as uuidv4 } from 'uuid';
 
