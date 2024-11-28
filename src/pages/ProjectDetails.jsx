@@ -6,7 +6,7 @@ export default function ProjectDetails() {
     const {title, description, skills, deadline, highestBid, id} = location.state || {}
     console.log(location.state)
 return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 text-web-gray">
+    <div className="min-h-screen flex flex-col items-center justify-center text-web-gray">
         <div className="max-w-4xl w-full p-8 bg-white rounded-lg shadow-lg flex flex-col justify-center items-center">
             <h1 className="text-5xl font-bold mb-6 text-black">{title}</h1>
             <p className="mb-6 text-lg py-14"> {description}</p>
