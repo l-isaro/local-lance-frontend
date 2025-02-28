@@ -1,9 +1,11 @@
 import { useLocation } from "react-router-dom"
 import ApplicationForm from "../components/ApplicationForm"
+import { useAuth } from "../contexts/AuthContext";
 
 export default function ProjectDetails() {
     const location = useLocation()
     const {title, description, skills, deadline, highestBid } = location.state || {}
+    const { user } = useAuth();
     console.log(location.state)
 return (
     <div className="min-h-screen flex flex-col items-center justify-center text-web-gray">
@@ -15,7 +17,7 @@ return (
             <p className="mb-6 text-lg "><strong className="text-black">Deadline:</strong> {deadline}</p>
             <p className="mb-6 text-lg"><strong className="text-black">Highest Bid:</strong> ${highestBid}</p>
             </div>
-            <ApplicationForm />
+            {(!user || user.role === "freelancer") && (<ApplicationForm />)}
         </div>
     </div>
 )

@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import { apiUrl } from "../constants/apiUrl";
 import { jwtDecode } from "jwt-decode";
 
@@ -9,31 +9,31 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("token") || null);
   const [user, setUser] = useState(token ? jwtDecode(token) : null);
 
-useEffect(() => {
-  if (token) {
-    try {
-      const decoded = jwtDecode(token);
+  useEffect(() => {
+    if (token) {
+      try {
+        const decoded = jwtDecode(token);
 
-      setUser(decoded);
-    } catch (error) {
-      console.error("Invalid token:", error);
-      logout();
+        setUser(decoded);
+      } catch (error) {
+        console.error("Invalid token:", error);
+        logout();
+      }
     }
-  }
-}, [token]);
+  }, [token]);
 
   const register = async (userData) => {
     try {
       const response = await fetch(`${apiUrl}/user/register`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(userData),
       });
 
       if (!response.ok) {
-        throw new Error('Registration failed');
+        throw new Error("Registration failed");
       }
 
       const data = await response.json();
@@ -45,7 +45,7 @@ useEffect(() => {
 
   const login = async (credentials) => {
     try {
-      console.log(credentials)
+      console.log(credentials);
       const response = await fetch(`${apiUrl}/user/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -71,7 +71,9 @@ useEffect(() => {
   const isLoggedIn = () => !!token;
 
   return (
-    <AuthContext.Provider value={{ token, login, logout, isLoggedIn, register, user }}>
+    <AuthContext.Provider
+      value={{ token, login, logout, isLoggedIn, register, user }}
+    >
       {children}
     </AuthContext.Provider>
   );

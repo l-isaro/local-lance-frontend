@@ -1,12 +1,14 @@
 import { Button, Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
 import { useState } from "react";
 import { useApplications } from "../contexts/ApplicationsContext";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
 
 export default function ApplicationForm() {
   const {projectId} = useParams()
-  console.log(projectId)
-  const { addApplication } = useApplications(); // Access the addApplication function
+  const { addApplication } = useApplications();
+  const { user } = useAuth();
+  const navigate = useNavigate()
   let [isOpen, setIsOpen] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -47,19 +49,16 @@ export default function ApplicationForm() {
       return;
     }
 
-    // Create the application object
     const application = {
       ...formData,
-      projectId, // Associate the application with the specific project/job
+      projectId,
       submittedAt: new Date().toISOString(),
     };
 
-    // Add application to the context
     addApplication(application);
 
     console.log("Application submitted successfully:", application);
 
-    // Reset form and close dialog
     setFormData({
       fullName: "",
       email: "",
@@ -74,7 +73,11 @@ export default function ApplicationForm() {
   };
 
   function open() {
+    if(user){
     setIsOpen(true);
+    } else {
+      navigate('/login')
+    }
   }
 
   function close() {
