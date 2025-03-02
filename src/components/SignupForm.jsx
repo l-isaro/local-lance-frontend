@@ -15,7 +15,7 @@ export default function SignupForm() {
 
   const { register } = useAuth();
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({
@@ -27,8 +27,12 @@ export default function SignupForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateForm()) {
-      register(formData);
-      navigate('/login')
+      await register({
+        email: formData.email,
+        role: formData.role,
+        password: formData.password,
+      });
+      navigate("/login");
     }
   };
 
@@ -61,8 +65,8 @@ export default function SignupForm() {
           className="p-3 border rounded-md w-80"
         >
           <option value="">Select role</option>
-          <option value="client">Client</option>
-          <option value="freelancer">Freelancer</option>
+          <option value="CLIENT">Client</option>
+          <option value="FREELANCER">Freelancer</option>
         </select>
         <label htmlFor="password">Password</label>
         <Input

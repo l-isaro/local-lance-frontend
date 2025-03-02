@@ -14,10 +14,10 @@ return (
             <p className="mb-6 text-lg py-14"> {description}</p>
             <div>
             <p className="mb-6 text-lg "><strong className="text-black">Skills:</strong> {skills || 'N/A'}</p>
-            <p className="mb-6 text-lg "><strong className="text-black">Deadline:</strong> {deadline}</p>
+            <p className="mb-6 text-lg "><strong className="text-black">Deadline:</strong> {deadline.split('T')[0]}</p>
             <p className="mb-6 text-lg"><strong className="text-black">Highest Bid:</strong> ${highestBid}</p>
             </div>
-            {(!user || user.role === "freelancer") && (<ApplicationForm />)}
+            {(!user || user.role === "FREELANCER") && (<ApplicationForm />)}
         </div>
     </div>
 )

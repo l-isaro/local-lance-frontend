@@ -1,64 +1,42 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Input from "./Input";
 import { useNavigate } from "react-router-dom";
 import MaterialUi from "../assets/MaterialUi.png";
 import { useAuth } from "../contexts/AuthContext";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
+import useNewProject from "../hooks/useNewProject";
 
 export default function ProjectForm() {
-  const {user} = useAuth()
+  const { user } = useAuth();
   const [formData, setFormData] = useState({
     id: uuidv4(),
-    clientId: user.clientId,
+    ownerId: user.sub,
     img: MaterialUi,
     title: "",
     description: "",
-    status: "active",
     skills: "",
     deadline: "",
     highestBid: "",
   });
 
+  const { createProject } = useNewProject();
+
   const navigate = useNavigate();
 
-  const [projects, setProjects] = useState([]);
-
-  useEffect(() => {
-    const savedProjects = JSON.parse(localStorage.getItem("projects")) || [];
-    setProjects(savedProjects);
-  }, []);
-
-//   useEffect(() => {
-//     localStorage.setItem("projects", JSON.stringify(projects));
-//   }, [projects]);
-
   const handleSubmit = (e) => {
-    console.log("we're submiting the form", formData)
+    console.log("we're submiting the form", formData);
     const savedProjects = JSON.parse(localStorage.getItem("projects")) || [];
     console.log(savedProjects);
     e.preventDefault();
 
-    const newProject = {
-      ...formData,
-      createdAt: new Date(),
-    };
-
-    // setProjects((prevProjects) => [...prevProjects, newProject]);
-
-    localStorage.setItem("projects", JSON.stringify([...projects, newProject]));
-
-    // Reset form
-    setFormData({
-      id: "",
-      img: MaterialUi,
-      title: "",
-      description: "",
-      status: "active",
-      skills: "",
-      deadline: "",
-      highestBid: "",
+    createProject({
+      ownerId: user.sub,
+      title: formData.title,
+      description: formData.description,
+      skills: formData.skills,
+      deadline: new Date(formData.deadline).toISOString(),
+      highestBid: Number(formData.highestBid),
     });
-
     navigate("/");
   };
 

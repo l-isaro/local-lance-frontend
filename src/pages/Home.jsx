@@ -6,12 +6,11 @@ import apply from "../assets/apply.png";
 import Process from "../components/Process";
 import stats from "../assets/stats.png";
 import MaterialUi from "../assets/MaterialUi.png";
-import CanvaApp from "../assets/CanvaApp.png";
-import graph from "../assets/graph.png";
 import WorkCard from "../components/workCard";
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { useAuth } from "../contexts/AuthContext";
+import useProjects from "../hooks/useProjects";
 
 export default function Home() {
   const [projects, setProjects] = useState([]);
@@ -43,54 +42,14 @@ export default function Home() {
       paragraph: "Apply or save and start your work",
     },
   ];
-  const works = [
-    {
-      id: uuidv4(),
-      img: MaterialUi,
-      title: "Logo Design",
-      description:
-        "Need a professional logo with writing underneath for our jewellery company",
-      highestBid: 500,
-    },
-    {
-      id: uuidv4(),
-      img: CanvaApp,
-      title: "Graphic Design",
-      description:
-        "We need a graphic designer with UI/UX skills for our Furniture company",
-      highestBid: 500,
-    },
-    {
-      id: uuidv4(),
-      img: graph,
-      title: "Need a SEO",
-      description:
-        "Need a SEO for our company who will let our company to a higher level",
-      highestBid: 300,
-    },
-    {
-      id: uuidv4(),
-      img: MaterialUi,
-      title: "Logo Design",
-      description:
-        "Need a professional logo with writing underneath for our jewellery company",
-      highestBid: 500,
-    },
-    {
-      id: uuidv4(),
-      img: CanvaApp,
-      title: "Graphic Design",
-      description:
-        "We need a graphic designer with UI/UX skills for our Furniture company",
-      highestBid: 500,
-    },
-  ];
+  
+const {projects: works} = useProjects()
 
   const displayedProjects = works.concat(projects);
 
   const workCards = displayedProjects.map((work) => (
     <WorkCard
-      img={work.img}
+      img={MaterialUi}
       title={work.title}
       description={work.description}
       highestBid={work.highestBid}

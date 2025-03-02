@@ -24,7 +24,7 @@ export const AuthProvider = ({ children }) => {
 
   const register = async (userData) => {
     try {
-      const response = await fetch(`${apiUrl}/user/register`, {
+      const response = await fetch(`${apiUrl}/auth/signup`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -35,9 +35,6 @@ export const AuthProvider = ({ children }) => {
       if (!response.ok) {
         throw new Error("Registration failed");
       }
-
-      const data = await response.json();
-      login(data.user);
     } catch (error) {
       console.error(error);
     }
@@ -46,7 +43,7 @@ export const AuthProvider = ({ children }) => {
   const login = async (credentials) => {
     try {
       console.log(credentials);
-      const response = await fetch(`${apiUrl}/user/login`, {
+      const response = await fetch(`${apiUrl}/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(credentials),

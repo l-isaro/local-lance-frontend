@@ -9,19 +9,19 @@ export default function LoginForm() {
   const { login } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const [credentials, setCredentials] = useState({ email: "", password: "" });
-  const [loading, setLoading] = useState(false); // State to track loading
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true); // Set loading to true when login starts
+    setLoading(true);
     try {
       await login(credentials);
-      navigate('/'); // Navigate to the desired route after successful login
+      navigate("/");
     } catch (error) {
       console.error("Login failed:", error);
     } finally {
-      setLoading(false); // Reset loading to false after login completes
+      setLoading(false);
     }
   };
 
@@ -68,9 +68,9 @@ export default function LoginForm() {
       <button
         type="submit"
         className="bg-web-blue text-white rounded-md py-3 px-8 w-80 mt-4"
-        disabled={loading} // Disable button when loading
+        disabled={loading}
       >
-        {loading ? "Loading..." : "Log In"} {/* Change button text */}
+        {loading ? "Loading..." : "Log In"}
       </button>
     </form>
   );

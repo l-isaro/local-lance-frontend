@@ -1,25 +1,22 @@
 import { useState, useEffect } from "react";
-import { useAuth } from "../contexts/AuthContext"; // Ensure the correct path
+import { useAuth } from "../contexts/AuthContext";
 import { v4 as uuidv4 } from "uuid";
+import useProjects from "../hooks/useProjects";
 
 export default function MyProjects() {
-  const [filteredProjects, setFilteredProjects] = useState([]);
   const [applications, setApplications] = useState([]);
-  const { user } = useAuth(); // Access the logged-in user
-  console.log(user.clientId)
+  const { user } = useAuth();
+  const {projects} = useProjects()
+  console.log(user.sub)
 
   useEffect(() => {
     if (user) {
-      const allProjects = JSON.parse(localStorage.getItem("projects")) || [];
       const allApplications = JSON.parse(localStorage.getItem("applications")) || [];
-
-      // Filter projects based on clientId
-      const myProjects = allProjects.filter((project) => project.clientId === user.clientId);
-      console.log(applications, myProjects)
-      setFilteredProjects(myProjects);
       setApplications(allApplications);
     }
   }, [user]);
+
+  const filteredProjects = projects.filter((project) => project.ownerId === user.sub)
 
   const getApplicationsForProject = (projectId) => {
     return applications.filter((app) => app.projectId === projectId);

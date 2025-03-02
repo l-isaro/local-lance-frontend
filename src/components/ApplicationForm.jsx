@@ -5,10 +5,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 
 export default function ApplicationForm() {
-  const {projectId} = useParams()
+  const { projectId } = useParams();
   const { addApplication } = useApplications();
   const { user } = useAuth();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   let [isOpen, setIsOpen] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -32,10 +32,13 @@ export default function ApplicationForm() {
     const newErrors = {};
     if (!formData.fullName) newErrors.fullName = "Full Name is required.";
     if (!formData.email) newErrors.email = "Email is required.";
-    if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = "Enter a valid email.";
-    if (!formData.professionalTitle) newErrors.professionalTitle = "Professional Title is required.";
+    if (!/\S+@\S+\.\S+/.test(formData.email))
+      newErrors.email = "Enter a valid email.";
+    if (!formData.professionalTitle)
+      newErrors.professionalTitle = "Professional Title is required.";
     if (!formData.skills) newErrors.skills = "Skills are required.";
-    if (!formData.hourlyRate || isNaN(formData.hourlyRate)) newErrors.hourlyRate = "Hourly rate must be a number.";
+    if (!formData.hourlyRate || isNaN(formData.hourlyRate))
+      newErrors.hourlyRate = "Hourly rate must be a number.";
     if (!formData.portfolioUrl || !/^https?:\/\//.test(formData.portfolioUrl))
       newErrors.portfolioUrl = "Enter a valid URL starting with http or https.";
     return newErrors;
@@ -73,10 +76,10 @@ export default function ApplicationForm() {
   };
 
   function open() {
-    if(user){
-    setIsOpen(true);
+    if (user) {
+      setIsOpen(true);
     } else {
-      navigate('/login')
+      navigate("/login");
     }
   }
 
@@ -118,8 +121,17 @@ export default function ApplicationForm() {
                 {[
                   { name: "fullName", label: "Full Name", type: "text" },
                   { name: "email", label: "Email", type: "email" },
-                  { name: "professionalTitle", label: "Professional Title", type: "text" },
-                  { name: "skills", label: "Skills", type: "text", placeholder: "E.g., React, JavaScript" },
+                  {
+                    name: "professionalTitle",
+                    label: "Professional Title",
+                    type: "text",
+                  },
+                  {
+                    name: "skills",
+                    label: "Skills",
+                    type: "text",
+                    placeholder: "E.g., React, JavaScript",
+                  },
                   { name: "portfolioUrl", label: "Portfolio URL", type: "url" },
                   { name: "hourlyRate", label: "Hourly Rate", type: "number" },
                 ].map(({ name, label, type, placeholder }) => (
@@ -139,7 +151,9 @@ export default function ApplicationForm() {
                   </div>
                 ))}
                 <div>
-                  <label className="block text-sm font-medium">Personal Bio</label>
+                  <label className="block text-sm font-medium">
+                    Personal Bio
+                  </label>
                   <textarea
                     name="bio"
                     value={formData.bio}
