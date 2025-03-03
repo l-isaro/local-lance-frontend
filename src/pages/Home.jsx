@@ -7,20 +7,13 @@ import Process from "../components/Process";
 import stats from "../assets/stats.png";
 import MaterialUi from "../assets/MaterialUi.png";
 import WorkCard from "../components/workCard";
-import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { useAuth } from "../contexts/AuthContext";
 import useProjects from "../hooks/useProjects";
 
 export default function Home() {
-  const [projects, setProjects] = useState([]);
   const { user } = useAuth();
   console.log(user);
-
-  useEffect(() => {
-    const savedProjects = JSON.parse(localStorage.getItem("projects")) || [];
-    setProjects(savedProjects);
-  }, []);
 
   const processes = [
     {
@@ -44,10 +37,7 @@ export default function Home() {
   ];
   
 const {projects: works} = useProjects()
-
-  const displayedProjects = works.concat(projects);
-
-  const workCards = displayedProjects.map((work) => (
+  const workCards = works.map((work) => (
     <WorkCard
       img={MaterialUi}
       title={work.title}
