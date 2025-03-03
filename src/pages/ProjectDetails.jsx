@@ -6,7 +6,6 @@ export default function ProjectDetails() {
     const location = useLocation()
     const {title, description, skills, deadline, highestBid } = location.state || {}
     const { user } = useAuth();
-    console.log(location.state)
 return (
     <div className="min-h-screen flex flex-col items-center justify-center text-web-gray">
         <div className="max-w-4xl w-full p-8 bg-white rounded-lg shadow-lg flex flex-col justify-center items-center">

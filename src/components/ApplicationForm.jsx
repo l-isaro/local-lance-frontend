@@ -1,24 +1,25 @@
 import { Button, Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
 import { useState } from "react";
-import { useApplications } from "../contexts/ApplicationsContext";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
+import useNewApplication from "../hooks/useNewApplication";
 
 export default function ApplicationForm() {
   const { projectId } = useParams();
-  const { addApplication } = useApplications();
+  const { createApplication } = useNewApplication();
   const { user } = useAuth();
   const navigate = useNavigate();
+  const params = useParams();
   let [isOpen, setIsOpen] = useState(false);
 
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
-    professionalTitle: "",
     skills: "",
-    portfolioUrl: "",
-    hourlyRate: "",
+    portfolio: "",
+    hourlyRate: 0,
     bio: "",
+    projectId: params.projectId
   });
 
   const [errors, setErrors] = useState({});
@@ -28,47 +29,27 @@ export default function ApplicationForm() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const validate = () => {
-    const newErrors = {};
-    if (!formData.fullName) newErrors.fullName = "Full Name is required.";
-    if (!formData.email) newErrors.email = "Email is required.";
-    if (!/\S+@\S+\.\S+/.test(formData.email))
-      newErrors.email = "Enter a valid email.";
-    if (!formData.professionalTitle)
-      newErrors.professionalTitle = "Professional Title is required.";
-    if (!formData.skills) newErrors.skills = "Skills are required.";
-    if (!formData.hourlyRate || isNaN(formData.hourlyRate))
-      newErrors.hourlyRate = "Hourly rate must be a number.";
-    if (!formData.portfolioUrl || !/^https?:\/\//.test(formData.portfolioUrl))
-      newErrors.portfolioUrl = "Enter a valid URL starting with http or https.";
-    return newErrors;
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const validationErrors = validate();
-    if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors);
-      return;
-    }
+    console.log(formData)
 
     const application = {
       ...formData,
+      hourlyRate: +formData.hourlyRate,
       projectId,
-      submittedAt: new Date().toISOString(),
     };
 
-    addApplication(application);
+    createApplication(application);
 
     console.log("Application submitted successfully:", application);
 
     setFormData({
       fullName: "",
       email: "",
-      professionalTitle: "",
       skills: "",
-      portfolioUrl: "",
-      hourlyRate: "",
+      portfolio: "",
+      hourlyRate: 0,
       bio: "",
     });
     setErrors({});
@@ -122,17 +103,12 @@ export default function ApplicationForm() {
                   { name: "fullName", label: "Full Name", type: "text" },
                   { name: "email", label: "Email", type: "email" },
                   {
-                    name: "professionalTitle",
-                    label: "Professional Title",
-                    type: "text",
-                  },
-                  {
                     name: "skills",
                     label: "Skills",
                     type: "text",
                     placeholder: "E.g., React, JavaScript",
                   },
-                  { name: "portfolioUrl", label: "Portfolio URL", type: "url" },
+                  { name: "portfolio", label: "Portfolio URL", type: "url" },
                   { name: "hourlyRate", label: "Hourly Rate", type: "number" },
                 ].map(({ name, label, type, placeholder }) => (
                   <div key={name}>
