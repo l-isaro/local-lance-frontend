@@ -10,25 +10,21 @@ const useApplications = () => {
   const fetchApplications = async (projectId) => {
     if (!projectId) return [];
 
-    // Return cached applications if available
     if (applicationsMap[projectId]) {
       return applicationsMap[projectId];
     }
 
-    // Mark this project as loading
     setLoadingMap((prev) => ({ ...prev, [projectId]: true }));
 
     try {
       const response = await axios.get(`${apiUrl}/bids/${projectId}`);
       const applications = response.data;
 
-      // Update the applications map with the new data
       setApplicationsMap((prev) => ({
         ...prev,
         [projectId]: applications,
       }));
 
-      // Clear any errors
       setErrorMap((prev) => ({ ...prev, [projectId]: null }));
 
       return applications;
