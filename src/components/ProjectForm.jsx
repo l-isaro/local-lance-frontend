@@ -24,9 +24,6 @@ export default function ProjectForm() {
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
-    console.log("we're submiting the form", formData);
-    const savedProjects = JSON.parse(localStorage.getItem("projects")) || [];
-    console.log(savedProjects);
     e.preventDefault();
 
     createProject({

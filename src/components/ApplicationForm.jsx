@@ -19,7 +19,7 @@ export default function ApplicationForm() {
     portfolio: "",
     hourlyRate: 0,
     bio: "",
-    projectId: params.projectId
+    projectId: params.projectId,
   });
 
   const [errors, setErrors] = useState({});
@@ -29,10 +29,8 @@ export default function ApplicationForm() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData)
 
     const application = {
       ...formData,
@@ -41,8 +39,6 @@ export default function ApplicationForm() {
     };
 
     createApplication(application);
-
-    console.log("Application submitted successfully:", application);
 
     setFormData({
       fullName: "",

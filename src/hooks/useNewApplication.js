@@ -9,7 +9,6 @@ const useNewApplication = () => {
 
   const createApplication = async (applicationData) => {
     setLoading(true);
-    console.log(applicationData);
     try {
       const response = await axios.post(`${apiUrl}/bids`, applicationData);
       setData(response.data);

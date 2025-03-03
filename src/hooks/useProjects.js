@@ -22,7 +22,5 @@ export default function useProjects() {
     fetchProjects();
   }, []);
 
-  console.log(projects);
-
   return { projects, loading, error };
 }

@@ -45,7 +45,6 @@ export default function SignupForm() {
     return Object.keys(newErrors).length === 0;
   };
 
-  console.log(formData);
   return (
     <form onSubmit={handleSubmit}>
       <div className="flex flex-col gap-2">

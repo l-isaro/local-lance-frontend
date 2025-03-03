@@ -8,13 +8,9 @@ import stats from "../assets/stats.png";
 import MaterialUi from "../assets/MaterialUi.png";
 import WorkCard from "../components/workCard";
 import { v4 as uuidv4 } from "uuid";
-import { useAuth } from "../contexts/AuthContext";
 import useProjects from "../hooks/useProjects";
 
 export default function Home() {
-  const { user } = useAuth();
-  console.log(user);
-
   const processes = [
     {
       id: uuidv4(),
